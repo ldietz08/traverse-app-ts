@@ -1,0 +1,114 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/breakpoints" as breakpoints;
+@use "../../styles/partials/resets";
+@use "../../styles/partials/fonts";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: $darkblue;
+  &__logo {
+    height: 6rem;
+    width: 8rem;
+  }
+}
+
+.hamburger {
+  background-color: $darkblue;
+  border: none;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  span {
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: $primary-white;
+    margin-bottom: 5px;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+}
+
+.navBar {
+  z-index: 999;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding-bottom: 1.5rem;
+    &-item {
+      color: $primary-white;
+      font-weight: bold;
+      padding: 1rem 1rem;
+      &:hover {
+        color: #5184ae;
+        transition: 0.2s ease;
+      }
+    }
+    &-link {
+      text-decoration: none;
+      color: $primary-white;
+    }
+    &-email {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__email {
+    color: rgb(193, 71, 71);
+    font-size: 0.8rem;
+  }
+  &__user {
+    height: 1.5rem;
+  }
+  &__auth {
+    margin: 0.5rem;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    background-color: $lightblue;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    &:hover {
+      color: $primary-white;
+      background-color: #5184ae;
+      transition: 0.2s ease;
+    }
+  }
+}
+
+.navBar {
+  display: none;
+  position: absolute;
+  top: 6rem;
+  left: 0;
+  width: 100%;
+  background-color: $darkblue;
+  padding: 1rem;
+
+  &.show {
+    display: block;
+  }
+}
+
+@include breakpoints.medium {
+  .hamburger {
+    display: none;
+  }
+  .navBar {
+    position: static;
+    display: block;
+    padding-bottom: 0;
+    &__list {
+      flex-direction: row;
+    }
+  }
+}

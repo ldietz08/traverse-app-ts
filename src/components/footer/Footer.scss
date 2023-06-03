@@ -1,0 +1,64 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/breakpoints" as breakpoints;
+@use "../../styles/partials/resets";
+@use "../../styles/partials/fonts";
+
+.footer {
+  background-color: $darkblue;
+  color: $primary-white;
+  padding: 5rem 2rem;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &__logo {
+    display: none;
+  }
+
+  &__links {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+
+    &-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    &-item {
+      margin-bottom: 10px;
+    }
+    &-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &-section {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@include breakpoints.medium {
+  .footer {
+    &__links {
+      justify-content: flex-start;
+      &-section {
+        padding-right: 3rem;
+      }
+    }
+    &__logo {
+      display: block;
+
+      & img {
+        height: 150px;
+      }
+    }
+  }
+}
