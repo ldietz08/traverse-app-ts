@@ -53,7 +53,6 @@ export default function Bulletin() {
     }
   };
 
-  // Add error handling, nullish coalescing
   return (
     <>
       <section className="bulletin">
