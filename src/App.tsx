@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import axios from "axios";
 import Header from "./components/header/Header";
 import Login from "./pages/login/Login";
@@ -13,10 +13,10 @@ import Footer from "./components/footer/Footer";
 import HikeInfo from "./pages/hike-info/HikeInfo";
 import "./App.scss";
 
-export default function App() {
+export const App: FC = () => {
   const [hikes, setHikes] = useState([]);
 
-  const BACK_END_URL = `${import.meta.env.VITE_API_URL}`;
+  const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
     const getHikes = async () => {
@@ -49,4 +49,4 @@ export default function App() {
       </div>
     </>
   );
-}
+};

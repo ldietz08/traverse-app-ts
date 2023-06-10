@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, ChangeEvent, FC, useState } from "react";
 import { auth, googleProvider } from "../../components/config/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -8,12 +8,12 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import "./Signup.scss";
 
-export default function Login() {
+const Signup: FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const signIn = async (e) => {
+  const signUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -23,18 +23,9 @@ export default function Login() {
     }
   };
 
-  const signInWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-      navigate("/explore");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
     <section className="signup__container">
-      <form className="signup__form">
+      <form className="signup__form" onSubmit={signUp}>
         <h2 className="signup__title">Sign up</h2>
         <label className="signup__form-label" htmlFor="email">
           Email
@@ -44,7 +35,9 @@ export default function Login() {
           type="email"
           id="email"
           name="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         ></input>
         <label className="signup__form-label" htmlFor="password">
           Password
@@ -54,9 +47,11 @@ export default function Login() {
           type="password"
           id="password"
           name="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         ></input>
-        <button onClick={signIn} className="login__form-btn">
+        <button type="submit" className="login__form-btn">
           SIGN UP
         </button>
         <div>
@@ -68,4 +63,6 @@ export default function Login() {
       </form>
     </section>
   );
-}
+};
+
+export default Signup;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, ChangeEvent, FC, useState } from "react";
 import { auth, googleProvider } from "../../components/config/firebase";
 import {
   signInWithEmailAndPassword,
@@ -9,12 +9,12 @@ import { useNavigate, Link } from "react-router-dom";
 import GoogleButton from "../../components/google-btn/GoogleButton";
 import "./Login.scss";
 
-export default function Login() {
+const Login: FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const signIn = async (e) => {
+  const signIn = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <section className="login__container">
-      <div className="login__form">
+      <form className="login__form" onSubmit={signIn}>
         <h2 className="login__title">Login</h2>
         <label className="login__form-label" htmlFor="email">
           Email
@@ -36,7 +36,9 @@ export default function Login() {
           type="email"
           id="email"
           name="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         ></input>
         <label className="login__form-label" htmlFor="password">
           Password
@@ -46,10 +48,12 @@ export default function Login() {
           type="password"
           id="password"
           name="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         ></input>
         <div>
-          <button onClick={signIn} className="login__form-btn">
+          <button type="submit" className="login__form-btn">
             LOGIN
           </button>
         </div>
@@ -60,7 +64,9 @@ export default function Login() {
           </Link>
         </div>
         <GoogleButton />
-      </div>
+      </form>
     </section>
   );
-}
+};
+
+export default Login;
