@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import { auth, googleProvider } from "../../components/config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import "./GoogleButton.scss";
 
-export default function GoogleButton() {
-  const signInWithGoogle = async () => {
+const GoogleButton: FC = () => {
+  const signInWithGoogle = async (): Promise<void> => {
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (err) {
@@ -25,4 +25,6 @@ export default function GoogleButton() {
       </p>
     </div>
   );
-}
+};
+
+export default GoogleButton;

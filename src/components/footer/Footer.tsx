@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import "./Footer.scss";
 import TraverseLogo from "../../assets/logo/traverse-logo.png";
 
-export default function Footer() {
+const Footer: FC = () => {
   return (
     <footer className="footer">
       <div className="footer__links">
@@ -36,4 +36,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
