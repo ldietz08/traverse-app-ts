@@ -13,8 +13,9 @@ import Footer from "./components/footer/Footer";
 import HikeInfo from "./pages/hike-info/HikeInfo";
 import "./App.scss";
 
+
 export const App: FC = () => {
-  const [hikes, setHikes] = useState([]);
+  const [hikes, setHikes] = useState<Hikes[]>([]);
 
   const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}`;
 

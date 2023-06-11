@@ -1,12 +1,13 @@
 import "./Favorites.scss";
 import { Link } from "react-router-dom";
+import React, { FC } from "react";
 import { useAppContext } from "../../components/context/AppContext";
 import HeartSolid from "../../assets/icons/heart-solid.svg";
 import Heart from "../../assets/icons/heart-regular.svg";
 
-const Favorites = ({ hikes }) => {
+const Favorites: FC<Props> = ({ hikes }) => {
   const { favorites, addToFavorites, removeFromFavorites } = useAppContext();
-  const checkFaves = (id) => {
+  const checkFaves = (id: string) => {
     const boolean = favorites.some((hike) => hike.id === id);
     return boolean;
   };
