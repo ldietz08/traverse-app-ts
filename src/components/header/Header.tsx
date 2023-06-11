@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import "./Header.scss";
 import TraverseLogo from "../../assets/logo/traverse-logo.png";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,8 @@ import { auth } from "../../components/config/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import UserLogo from "../../assets/icons/user-solid.svg";
 
-export default function Header() {
-  const [isAuth, setIsAuth] = useState(null);
+const Header: FC = () => {
+  const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
@@ -19,9 +19,9 @@ export default function Header() {
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsAuth(user);
+        setIsAuth(true);
       } else {
-        setIsAuth(null);
+        setIsAuth(false);
       }
     });
     return () => {
@@ -112,6 +112,7 @@ export default function Header() {
                   <Link
                     className="navBar__list-link"
                     onClick={() => setShowMenu(false)}
+                    to=""
                   >
                     <li className="navBar__list-item">
                       <img src={UserLogo} className="navBar__user" />
@@ -138,4 +139,6 @@ export default function Header() {
       </header>
     </>
   );
-}
+};
+
+export default Header;

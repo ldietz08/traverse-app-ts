@@ -19,9 +19,9 @@ import {
 
 interface Post {
   id: string;
-  userName: string;
-  hikeName: string;
-  content: string;
+  userName?: string;
+  hikeName?: string;
+  content?: string;
 }
 
 const Posts: FC = () => {

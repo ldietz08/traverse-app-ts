@@ -3,7 +3,7 @@ import React, { FC, SetStateAction, Dispatch, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../components/config/firebase";
 
-interface Post {
+interface PostShape {
   id: string;
   userName: string;
   hikeName: string;
@@ -12,7 +12,7 @@ interface Post {
 
 interface Props {
   setEditModal: Dispatch<SetStateAction<boolean>>;
-  post: Post;
+  post: any;
 }
 
 const EditModal: FC<Props> = ({ setEditModal, post }) => {
@@ -61,7 +61,7 @@ const EditModal: FC<Props> = ({ setEditModal, post }) => {
             <textarea
               id="post"
               className="modal__body modal__content"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 setUserPost(e.target.value)
               }
             />
