@@ -1,5 +1,5 @@
 import "../../pages/bulletin/Bulletin.scss";
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "../../assets/icons/user.png";
 import Envelope from "../../assets/icons/envelope.svg";
@@ -17,22 +17,29 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-export default function Posts() {
+interface Post {
+  id: string;
+  userName: string;
+  hikeName: string;
+  content: string;
+}
+
+const Posts: FC = () => {
   const navigate = useNavigate();
 
-  const [editModal, setEditModal] = useState(false);
-  const [updatedPost, setUpdatedPost] = useState([]);
-  const [posts, setPosts] = useState([]);
+  const [editModal, setEditModal] = useState<boolean>(false);
+  const [updatedPost, setUpdatedPost] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   //Reference the collection
   const postsCollectionRef = collection(db, "posts");
 
-  const deletePost = async (id) => {
+  const deletePost = async (id: string): Promise<void> => {
     const postDoc = doc(db, "posts", id);
     await deleteDoc(postDoc);
   };
 
-  const getPosts = async () => {
+  const getPosts = async (): Promise<void>  => {
     try {
       const data = await getDocs(postsCollectionRef);
       const filteredData = data.docs.map((doc) => ({
@@ -131,7 +138,7 @@ export default function Posts() {
           <div>
             <h1>Carlos</h1>
           </div>
-          <div className="bulletin__date"> 
+          <div className="bulletin__date">
             <h1>11/24/22</h1>
           </div>
         </div>
@@ -246,4 +253,6 @@ export default function Posts() {
       </div>
     </section>
   );
-}
+};
+
+export default Posts;

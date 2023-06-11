@@ -1,14 +1,26 @@
 import "./EditModal.scss";
-import React, { useState } from "react";
+import React, { FC, SetStateAction, Dispatch, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../components/config/firebase";
 
-const Message = ({ setEditModal, post }) => {
-  const [userName, setUserName] = useState("");
-  const [hikeName, setHikeName] = useState("");
-  const [userPost, setUserPost] = useState("");
+interface Post {
+  id: string;
+  userName: string;
+  hikeName: string;
+  content: string;
+}
 
-  const updatePostContent = async (id) => {
+interface Props {
+  setEditModal: Dispatch<SetStateAction<boolean>>;
+  post: Post;
+}
+
+const EditModal: FC<Props> = ({ setEditModal, post }) => {
+  const [userName, setUserName] = useState<string>("");
+  const [hikeName, setHikeName] = useState<string>("");
+  const [userPost, setUserPost] = useState<string>("");
+
+  const updatePostContent = async (id: string): Promise<void> => {
     const postDoc = doc(db, "posts", id);
     await updateDoc(postDoc, {
       userName: userName,
@@ -31,24 +43,27 @@ const Message = ({ setEditModal, post }) => {
         <form className="modal__form">
           <div className="body">
             <input
-              type="text"
               id="username"
               placeholder="Name"
               className="modal__body"
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserName(e.target.value)
+              }
             />
             <input
-              type="text"
               id="hike"
               placeholder="Hike"
               className="modal__body"
-              onChange={(e) => setHikeName(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setHikeName(e.target.value)
+              }
             />
             <textarea
-              type="text"
               id="post"
               className="modal__body modal__content"
-              onChange={(e) => setUserPost(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserPost(e.target.value)
+              }
             />
           </div>
           <div className="modal__btn-wrapper">
@@ -74,4 +89,4 @@ const Message = ({ setEditModal, post }) => {
   );
 };
 
-export default Message;
+export default EditModal;
