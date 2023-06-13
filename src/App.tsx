@@ -13,9 +13,8 @@ import Footer from "./components/footer/Footer";
 import HikeInfo from "./pages/hike-info/HikeInfo";
 import "./App.scss";
 
-
 export const App: FC = () => {
-  const [hikes, setHikes] = useState<Hikes[]>([]);
+  const [hikes, setHikes] = useState([]);
 
   const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}`;
 
@@ -41,7 +40,7 @@ export const App: FC = () => {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="hikes" element={<ExplorePage hikes={hikes} />} />
-            <Route path="hikes/:id" element={<HikeInfo hikes={hikes} />} />
+            <Route path="hikes/:id" element={<HikeInfo />} />
             <Route path="bulletin" element={<Bulletin />} />
             <Route path="favorites" element={<Favorites hikes={hikes} />} />
           </Routes>

@@ -1,7 +1,21 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext } from "react";
 import { useState } from "react";
 
-const AppContext = createContext(null);
+interface HikeProps {
+  id: string;
+  image: string;
+  location: string;
+}
+
+const AppContext = createContext<{
+  favorites: HikeProps[];
+  addToFavorites: (item: HikeProps) => void;
+  removeFromFavorites: (item: string) => void;
+}>({
+  favorites: [],
+  addToFavorites: () => {},
+  removeFromFavorites: () => {},
+});
 
 export const useAppContext = () => {
   const context = useContext(AppContext);
@@ -9,19 +23,19 @@ export const useAppContext = () => {
   if (context === undefined) {
     throw new Error("An error has occurred");
   }
-  return context; 
+  return context;
 };
 
-const AppContextProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
+const AppContextProvider = ({ children }: { children: React.ReactNode })  => {
+  const [favorites, setFavorites] = useState<string[]>([]);
 
-  const addToFavorites = (hike) => {
+  const addToFavorites = (hike: HikeProps) => {
     const oldFaves = [...favorites];
 
     const newFaves = oldFaves.concat(hike);
     setFavorites(newFaves);
   };
-  const removeFromFavorites = (id) => {
+  const removeFromFavorites = (id: string) => {
     const oldFaves = [...favorites];
     const newFaves = [...oldFaves.filter((hike) => hike.id !== id)];
 

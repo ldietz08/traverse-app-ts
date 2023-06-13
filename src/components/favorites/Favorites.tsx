@@ -5,7 +5,13 @@ import { useAppContext } from "../../components/context/AppContext";
 import HeartSolid from "../../assets/icons/heart-solid.svg";
 import Heart from "../../assets/icons/heart-regular.svg";
 
-const Favorites: FC<Props> = ({ hikes }) => {
+interface HikeProps {
+  id: string;
+  image: string;
+  location: string;
+}
+
+const Favorites: FC<HikeProps> = (props: HikeProps) => {
   const { favorites, addToFavorites, removeFromFavorites } = useAppContext();
   const checkFaves = (id: string) => {
     const boolean = favorites.some((hike) => hike.id === id);

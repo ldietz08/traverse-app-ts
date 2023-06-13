@@ -1,6 +1,6 @@
 import "./Bulletin.scss";
 import Posts from "../../components/posts/Posts";
-import { useState } from "react";
+import React, { useState } from "react";
 import User from "../../assets/icons/user.png";
 import Envelope from "../../assets/icons/envelope.svg";
 import Trash from "../../assets/icons/trash-can.svg";
@@ -11,14 +11,16 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 export default function Bulletin() {
-  const [userName, setUserName] = useState("");
-  const [hikeName, setHikeName] = useState("");
-  const [userPost, setUserPost] = useState("");
+  const formEl = useRef();
+
+  const [userName, setUserName] = useState<string>("");
+  const [hikeName, setHikeName] = useState<string>("");
+  const [userPost, setUserPost] = useState<string>("");
 
   //Reference the collection
   const postsCollectionRef = collection(db, "posts");
 
-  const options = [
+  const options: string[] = [
     "Watersprite Lake",
     "The Lions",
     "St.Mark's Summit",
@@ -37,7 +39,7 @@ export default function Bulletin() {
     "Elfin Lakes",
   ];
 
-  const addPost = async (e) => {
+  const addPost = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
       await addDoc(postsCollectionRef, {
@@ -46,8 +48,7 @@ export default function Bulletin() {
         content: userPost,
         userId: auth?.currentUser?.uid,
       });
-      const form = document.querySelector(".form"); //switch to useRef
-      form.reset();
+      formEl.current.reset();
     } catch (err) {
       console.log(err);
     }
@@ -59,31 +60,31 @@ export default function Bulletin() {
         <div className="bulletin__msg">
           <img src={Hikers} className="bulletin__img" />
           <div className="bulletin__wrap">
-            <form className="form">
+            <form className="form" onSubmit={addPost} ref={formEl}>
               <h1>Create a new post</h1>
               <input
                 className="bulletin__input"
                 placeholder="Enter your name"
-                onChange={(e) => {
-                  setUserName(e.target.value);
-                }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUserName(e.target.value)
+                }
               />
               <Dropdown
                 options={options}
                 placeholder="Select a hike"
-                onChange={(e) => {
-                  setHikeName(e.value);
-                }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setHikeName(e.target.value)
+                }
               />
               <input
                 className="bulletin__input-body"
                 placeholder="Have something to share with the community?"
-                onChange={(e) => {
-                  setUserPost(e.target.value);
-                }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUserPost(e.target.value)
+                }
               />
               <div className="btn__wrapper">
-                <button className="btn" onClick={addPost}>
+                <button className="btn" type="submit">
                   Post
                 </button>
               </div>
