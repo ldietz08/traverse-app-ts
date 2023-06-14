@@ -19,7 +19,7 @@ export const App: FC = () => {
   const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}`
 
   useEffect(() => {
-    const getHikes = async () => {
+    const getHikes = async (): Promise<void> => {
       try {
         const { data } = await axios.get(BACK_END_URL)
         setHikes(data)
