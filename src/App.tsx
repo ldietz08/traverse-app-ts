@@ -1,35 +1,49 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import React, { useState, useEffect, FC } from 'react'
-import axios from 'axios'
-import Header from './components/header/Header'
-import Login from './pages/login/Login'
-import Signup from './pages/signup/Signup'
-import LandingPage from './pages/landing-page/LandingPage'
-import ExplorePage from './pages/explore/ExplorePage'
-import Favorites from './components/favorites/Favorites'
-import Auth from './pages/login/Login'
-import Bulletin from './pages/bulletin/Bulletin'
-import Footer from './components/footer/Footer'
-import HikeInfo from './pages/hike-info/HikeInfo'
-import './App.scss'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect, FC } from 'react';
+import axios from 'axios';
+import Header from './components/header/Header';
+import Login from './pages/login/Login';
+import Signup from './pages/signup/Signup';
+import LandingPage from './pages/landing-page/LandingPage';
+import ExplorePage from './pages/explore/ExplorePage';
+// import Favorites from './components/favorites/Favorites'
+import Auth from './pages/login/Login';
+// import Bulletin from './pages/bulletin/Bulletin'
+import Footer from './components/footer/Footer';
+import HikeInfo from './pages/hike-info/HikeInfo';
+import './App.scss';
+
+interface Hikes {
+  id: string;
+  name: string;
+  location: string;
+  difficulty: string;
+  time: string;
+  length: string;
+  elevation: string;
+  season: string;
+  image: string;
+  description: string;
+  map: string;
+}
 
 export const App: FC = () => {
-  const [hikes, setHikes] = useState([])
+  const [hikes, setHikes] = useState<Hikes[]>([]);
 
-  const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}`
+  const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
     const getHikes = async (): Promise<void> => {
       try {
-        const { data } = await axios.get(BACK_END_URL)
-        setHikes(data)
-        console.log(data)
+        const { data } = await axios.get(BACK_END_URL);
+        setHikes(data);
+        console.log(data);
       } catch (error) {
-        console.log('An error has occurred', error)
+        console.log('An error has occurred', error);
       }
-    }
-    getHikes()
-  }, [])
+    };
+    getHikes();
+  }, []);
   return (
     <>
       <div className='App'>
@@ -41,12 +55,12 @@ export const App: FC = () => {
             <Route path='signup' element={<Signup />} />
             <Route path='hikes' element={<ExplorePage hikes={hikes} />} />
             <Route path='hikes/:id' element={<HikeInfo />} />
-            <Route path='bulletin' element={<Bulletin />} />
-            <Route path='favorites' element={<Favorites hikes={hikes} />} />
+            {/* <Route path='bulletin' element={<Bulletin />} />
+            <Route path='favorites' element={<Favorites hikes={hikes} />} /> */}
           </Routes>
           <Footer />
         </BrowserRouter>
       </div>
     </>
-  )
-}
+  );
+};
