@@ -1,17 +1,18 @@
 import './Bulletin.scss';
 import Posts from '../../components/posts/Posts';
-import React, { FormEvent, ChangeEvent, FC, useState} from 'react';
+import React, { FormEvent, ChangeEvent, FC, useState, useRef } from 'react';
 import User from '../../assets/icons/user.png';
 import Envelope from '../../assets/icons/envelope.svg';
 import Trash from '../../assets/icons/trash-can.svg';
 import Hikers from '../../assets/images/hikers-animated.png';
 import { db, auth } from '../../components/config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import Dropdown from 'react-dropdown';
+import Dropdown, { Option } from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 const Bulletin: FC = () => {
-  const formEl = useRef();
+  const ref = useRef();
+  const formEl = useRef<HTMLFormElement>(null);
 
   const [userName, setUserName] = useState<string>('');
   const [hikeName, setHikeName] = useState<string>('');
@@ -48,7 +49,7 @@ const Bulletin: FC = () => {
         content: userPost,
         userId: auth?.currentUser?.uid,
       });
-      formEl.current.reset();
+      formEl.current?.reset();
     } catch (err) {
       console.log(err);
     }
@@ -72,8 +73,8 @@ const Bulletin: FC = () => {
               <Dropdown
                 options={options}
                 placeholder='Select a hike'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setHikeName(e.target.value)
+                onChange={(selectedOption: Option) =>
+                  setHikeName(selectedOption.value)
                 }
               />
               <input

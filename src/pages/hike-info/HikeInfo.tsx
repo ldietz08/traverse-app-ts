@@ -20,7 +20,7 @@ interface Hikes {
 
 const HikeInfo: FC = () => {
   const params = useParams();
-  const [hikeInfo, setHikeInfo] = useState<Hikes[]>([]);
+  const [hikeInfo, setHikeInfo] = useState<Hikes | null>(null);
 
   const BACK_END_URL: string = `${import.meta.env.VITE_API_URL}/${params.id}`;
 
@@ -42,7 +42,7 @@ const HikeInfo: FC = () => {
     <>
       <section className='information'>
         {hikeInfo && (
-          <main className='info__container' key={hikeInfo.id}>
+          <main className='info__container'>
             <div className='info__wrapper'>
               <div className='info__img-wrapper'>
                 <div className='info'>
@@ -100,11 +100,13 @@ const HikeInfo: FC = () => {
         )}
       </section>
       <div className='info__map'>
-        <img
-          className='info__img-map'
-          src={hikeInfo.map}
-          alt='Map of trail'
-        ></img>
+        {hikeInfo && (
+          <img
+            className='info__img-map'
+            src={hikeInfo.map}
+            alt='Map of trail'
+          ></img>
+        )}
       </div>
     </>
   );
