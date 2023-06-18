@@ -6,9 +6,9 @@ import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import LandingPage from './pages/landing-page/LandingPage';
 import ExplorePage from './pages/explore/ExplorePage';
-// import Favorites from './components/favorites/Favorites'
+import Favorites from './components/favorites/Favorites';
 import Auth from './pages/login/Login';
-// import Bulletin from './pages/bulletin/Bulletin'
+import Bulletin from './pages/bulletin/Bulletin';
 import Footer from './components/footer/Footer';
 import HikeInfo from './pages/hike-info/HikeInfo';
 import './App.scss';
@@ -55,8 +55,8 @@ export const App: FC = () => {
             <Route path='signup' element={<Signup />} />
             <Route path='hikes' element={<ExplorePage hikes={hikes} />} />
             <Route path='hikes/:id' element={<HikeInfo />} />
-            {/* <Route path='bulletin' element={<Bulletin />} />
-            <Route path='favorites' element={<Favorites hikes={hikes} />} /> */}
+            <Route path='bulletin' element={<Bulletin />} />
+            <Route path='favorites' element={<Favorites hikes={hikes} />} />
           </Routes>
           <Footer />
         </BrowserRouter>

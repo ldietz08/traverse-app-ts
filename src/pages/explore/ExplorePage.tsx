@@ -7,13 +7,23 @@ import './ExplorePage.scss';
 
 interface Hikes {
   id: string;
-  location: string;
   name: string;
+  location: string;
   difficulty: string;
+  time: string;
+  length: string;
+  elevation: string;
+  season: string;
   image: string;
+  description: string;
+  map: string;
 }
 
-const ExplorePage: FC<Hikes> = ({ hikes }) => {
+interface HikeProps {
+  hikes: Hikes[];
+}
+
+const ExplorePage: FC<HikeProps> = ({ hikes }) => {
   const { favorites, addToFavorites, removeFromFavorites } = useAppContext();
   const [query, setQuery] = useState<string>('');
 
