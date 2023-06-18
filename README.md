@@ -17,6 +17,7 @@ TraVerse is a community-based hiking app that allows hiking enthusiasts to stay 
 **Tech used:**
 
 - React.js
+- TypeScript
 - Sass
 - Firebase
 - Vite
