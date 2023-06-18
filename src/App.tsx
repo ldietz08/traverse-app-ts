@@ -11,21 +11,8 @@ import Auth from './pages/login/Login';
 import Bulletin from './pages/bulletin/Bulletin';
 import Footer from './components/footer/Footer';
 import HikeInfo from './pages/hike-info/HikeInfo';
+import { Hikes } from '../types/Hikes';
 import './App.scss';
-
-interface Hikes {
-  id: string;
-  name: string;
-  location: string;
-  difficulty: string;
-  time: string;
-  length: string;
-  elevation: string;
-  season: string;
-  image: string;
-  description: string;
-  map: string;
-}
 
 export const App: FC = () => {
   const [hikes, setHikes] = useState<Hikes[]>([]);

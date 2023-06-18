@@ -1,23 +1,10 @@
+import './ExplorePage.scss';
 import React, { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeartSolid from '../../assets/icons/heart-solid.svg';
 import Heart from '../../assets/icons/heart-regular.svg';
 import { useAppContext } from '../../components/context/AppContext';
-import './ExplorePage.scss';
-
-interface Hikes {
-  id: string;
-  name: string;
-  location: string;
-  difficulty: string;
-  time: string;
-  length: string;
-  elevation: string;
-  season: string;
-  image: string;
-  description: string;
-  map: string;
-}
+import { Hikes } from '../../../types/Hikes';
 
 interface HikeProps {
   hikes: Hikes[];

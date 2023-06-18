@@ -3,20 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Rating from '../../assets/icons/rating.png';
-
-interface Hikes {
-  id: string;
-  name: string;
-  location: string;
-  difficulty: string;
-  time: string;
-  length: string;
-  elevation: string;
-  season: string;
-  image: string;
-  description: string;
-  map: string;
-}
+import { Hikes } from '../../../types/Hikes';
 
 const HikeInfo: FC = () => {
   const params = useParams();
